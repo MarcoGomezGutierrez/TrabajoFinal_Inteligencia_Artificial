@@ -100,8 +100,20 @@ class Application(ttk.Frame):
         
         # Cargar imagen del directorio seleccionado
         file_path = filedialog.askopenfilename(initialdir="C:/", filetypes=[("Archivos JPG",".jpg"),("Archivos PNG",".png")])
-        image = cv2.imread(file_path)
-        imageChange = cv2.imread(file_path)
+        im = cv2.imread(file_path)
+        #Porcentaje en el que se redimensiona la imagen
+        scale_percent = 30
+        
+        #Calcular el 50 por ciento de las dimensiones originales
+        width = int(im.shape[1] * scale_percent / 100)
+        height = int(im.shape[0] * scale_percent / 100)
+        
+        # dsize
+        dsize = (width, height)
+        
+        # cambiar el tamaño de la image
+        image = cv2.resize(im, dsize)
+        imageChange = cv2.resize(im, dsize)
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         
         # Entrenamiento del modelo para detectar las imagenes
@@ -190,9 +202,10 @@ class Application(ttk.Frame):
             label_image.image = image  # Almacenar una referencia a la imagen
             label_image.pack(side="top")
         # Cargar el texto en la pantalla
-        text = Text(newWindow, bg="green")
+        text = Text(newWindow, bg="black")
         # Cambiar color de fondo
-        text.configure(bg=window.cget('bg'))
+        text.configure(bg="white")
+        text.insert(1.0, result)
         # Desabilitar edicion de texto, para que solo sea subrayable
         text.configure(state="disabled")
         text.pack()
