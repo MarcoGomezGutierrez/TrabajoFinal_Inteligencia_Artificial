@@ -95,7 +95,7 @@ class Application(ttk.Frame):
             self.nuevaVentana("Detector QR", imageTransform, "No es un QR")
 
     def detectarRostros(self):
-        # Cargar base de datos con los puntos de entrenamiento parad etectar rostros
+        # Cargar base de datos con los puntos de entrenamiento para detectar rostros
         faceClassif = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
         
         # Cargar imagen del directorio seleccionado
